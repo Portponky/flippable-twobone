@@ -1,5 +1,5 @@
 # FlippableTwobone
-Replacement for Godot Engine 4's SkeletonModification2DTwoBoneIK which can be scaled unequally.
+Replacement for Godot Engine 4's SkeletonModification2DTwoBoneIK which can be flipped or mirrored.
 
 Adapted from this comment: https://github.com/godotengine/godot/issues/80252#issuecomment-1961365213 by @lethiandev
 
