@@ -143,9 +143,12 @@ func _execute(_delta: float):
 	
 	var angle_b := 0.0
 	
+	var global_xform : Transform2D = _bone_a.get_parent().global_transform
+	
 	var cos_angle2_denom := 2.0 * bone_a_len * bone_b_len
 	if not is_zero_approx(cos_angle2_denom):
-		var target_len_sqr := _bone_a.global_position.distance_squared_to(_target.global_position)
+		var offset := _target.global_position - _bone_a.global_position
+		var target_len_sqr := (offset / global_xform.get_scale()).length_squared()
 		var bone_a_len_sqr := bone_a_len * bone_a_len
 		var bone_b_len_sqr := bone_b_len * bone_b_len
 		
@@ -161,7 +164,7 @@ func _execute(_delta: float):
 	var tri_adjacent := bone_a_len + bone_b_len * cos_angle2
 	var tri_opposite := bone_b_len * sin_angle2
 	
-	var xform_inv : Transform2D = _bone_a.get_parent().global_transform.affine_inverse()
+	var xform_inv := global_xform.affine_inverse()
 	var target_pos := xform_inv * _target.global_position - _bone_a.position
 	
 	var tan_y := target_pos.y * tri_adjacent - target_pos.x * tri_opposite
